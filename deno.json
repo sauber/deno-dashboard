@@ -1,6 +1,6 @@
 {
   "name": "@sauber/ml-cli-dashboard",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "exports": "./mod.ts",
   "imports": {
     "@image": "jsr:@sauber/block-image@^2.0.3",
