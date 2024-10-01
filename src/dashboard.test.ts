@@ -1,4 +1,5 @@
-import { assertInstanceOf, assertMatch, assertNotMatch, assertStringIncludes } from "@std/assert";
+// import { delay } from 'https://deno.land/x/delay@v0.2.0/mod.ts';
+import { assertInstanceOf, assertNotMatch, assertStringIncludes } from "@std/assert";
 import { Dashboard } from "./dashboard.ts";
 import { xor } from "./examples.ts";
 import type { Example } from "./examples.ts";
@@ -41,6 +42,7 @@ Deno.test("Run Iterations", { ignore: false }, () => {
   for (let i = 0; i < max; i += step) {
     const printable: string = d.render(i, Math.random());
     console.log(printable);
+    // await delay(1000);
   }
   console.log(d.finish());
 });

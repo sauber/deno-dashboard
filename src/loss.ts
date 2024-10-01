@@ -1,16 +1,25 @@
 import { plot } from "chart";
 import { BarLine } from "./barline.ts";
 
-/** Pick samples from array
- * TODO: Smooth average of intervals instad of picking
- */
+/** Pick samples from array */
 function resample(data: number[], count: number): number[] {
+  // No resample if too little data
   if (count >= data.length) return data;
+
+  // Average of numbers
+  const average = (arr: number[]) =>
+    arr.reduce((p: number, c: number) => p + c, 0) / arr.length;
+
+  // Downsample buckets
   const output: number[] = [];
+  const bucketSize = data.length / count;
   for (let i = 1; i <= count; ++i) {
-    output.push(data[Math.floor((data.length * i) / count - 1)]);
+    const bucket: number[] = data.slice(
+      Math.floor((i - 1) * bucketSize),
+      Math.ceil(i * bucketSize)
+    );
+    output.push(average(bucket));
   }
-  // console.log({ output });
   return output;
 }
 
@@ -35,15 +44,19 @@ export class Loss {
 
     // Generate a graph
     // TODO: Better estimation of padding width
-    const points: number[] = resample(history, this.width - 7);
+    const chartWidth = this.width - 7;
+    const points: number[] = resample(history, chartWidth);
     const printable: string = plot(points, {
       height: this.height - 1,
       padding: "      ",
     });
-    // Remove single trailing space from each line
+
     const stripped = printable
       .split("\n")
+      // Remove single trailing space from each line
       .map((l) => l.replace(/ $/, ""))
+      // Pad end of line to full width
+      .map((l) => l + new BarLine(this.width - l.length).line)
       .join("\n");
 
     return stripped;
