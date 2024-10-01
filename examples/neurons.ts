@@ -2,7 +2,6 @@ import type { Inputs, Outputs } from "jsr:@sauber/neurons";
 import { Network, Train } from "jsr:@sauber/neurons";
 import { Dashboard } from "jsr:@sauber/ml-cli-dashboard";
 
-
 // Training Data
 const xs: Inputs = [];
 const ys: Outputs = [];
