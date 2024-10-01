@@ -1,4 +1,4 @@
-import { plot } from "chart";
+import { plot } from "@chart";
 import { BarLine } from "./barline.ts";
 
 /** Pick samples from array */

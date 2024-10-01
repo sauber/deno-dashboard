@@ -1,5 +1,5 @@
 import brain from "npm:brain.js@1.6.0";
-import { Dashboard } from "../src/dashboard.ts";
+import { Dashboard } from "jsr:@sauber/dashboard";
 
 // Training Data
 const training = [];

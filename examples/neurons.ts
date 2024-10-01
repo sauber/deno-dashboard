@@ -1,6 +1,7 @@
 import type { Inputs, Outputs } from "jsr:@sauber/neurons";
 import { Network, Train } from "jsr:@sauber/neurons";
-import { Dashboard } from "../src/dashboard.ts";
+import { Dashboard } from "jsr:@sauber/dashboard";
+
 
 // Training Data
 const xs: Inputs = [];
