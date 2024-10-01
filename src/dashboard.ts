@@ -10,6 +10,8 @@ const SHOW = ESC + "?25h";
 const HIDE = ESC + "?25l";
 const LINEUP = ESC + "F";
 
+
+/** A CLI printable dashboard with progressbar, scatter plot and loss chart. */
 export class Dashboard {
   private readonly scatter: Scatter;
   private readonly loss: Loss;
@@ -18,7 +20,7 @@ export class Dashboard {
   private readonly losses: number[] = [];
 
   /**
-   *
+   * Create a new Dashboard of given size and set of training data.
    * @param {number} width - Number of chars wide
    * @param {number} height - Number for lines high
    * @param {Inputs} inputs  - Training input data set

@@ -21,11 +21,13 @@ for (let i = 0; i < 150; ++i) {
 
 // Neural network
 const net = new Network(2).dense(8).lrelu.dense(6).lrelu.dense(1).tanh;
+
+// Callback to network from dashboard
 function predict(a: number, b: number): number {
   return net.predict([a, b])[0];
 }
 
-// Callback to dashboard from training
+// Dashboard
 const epochs = 20000;
 const width = 74;
 const height = 12;
@@ -50,6 +52,7 @@ t.callbackFrequency = 100;
 t.epsilon = 0.01;
 const learning_rate = 0.5;
 t.run(epochs, learning_rate);
+console.log(d.finish());
 ```
 
 ## Backend Examples
