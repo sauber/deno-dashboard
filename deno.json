@@ -1,6 +1,6 @@
 {
   "name": "@sauber/ml-cli-dashboard",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "exports": "./mod.ts",
   "imports": {
     "@image": "jsr:@sauber/block-image@^2.0.3",
@@ -11,15 +11,7 @@
   },
   "lock": false,
   "publish": {
-    "exclude": [
-      "src/*.test.ts"
-    ],
-    "include": [
-      "LICENSE",
-      "README.md",
-      "mod.ts",
-      "src/*.ts",
-      "examples/*.ts"
-    ]
+    "exclude": ["src/*.test.ts"],
+    "include": ["LICENSE", "README.md", "mod.ts", "src/*.ts", "examples/*.ts"]
   }
 }
