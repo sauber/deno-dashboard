@@ -233,8 +233,6 @@ export class Scatter {
    */
 
   /** Generate heatmap diagram
-   * @param [width=40] Number of chars wide
-   * @param [height=10] Number of chars high
    * @result String printable on terminal console
    */
   public plot(): string {

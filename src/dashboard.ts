@@ -4,12 +4,12 @@ import { Scatter } from "./scatter.ts";
 import { Iteration } from "./iteration.ts";
 import type { Inputs, Outputs, Predict } from "../mod.ts";
 
+// ANSI escape codes
 const SEP = "│";
 const ESC = "\u001B[";
 const SHOW = ESC + "?25h";
 const HIDE = ESC + "?25l";
 const LINEUP = ESC + "F";
-
 
 /** A CLI printable dashboard with progressbar, scatter plot and loss chart. */
 export class Dashboard {
@@ -49,7 +49,12 @@ export class Dashboard {
     this.iteration = new Iteration(epochs, colWidth * 2 + 1);
   }
 
-  // Combine components into dashboard
+  /**
+   * Combine components into dashboard
+   * @param {number} iteration - Count of iterations completed
+   * @param {number} loss - Error of most recent iteration
+   * @result String printable on terminal console
+   */
   public render(iteration: number, loss: number): string {
     const lines: string[] = [];
 
@@ -58,14 +63,21 @@ export class Dashboard {
     const losscomp: string[] = this.loss.render(this.losses).split("\n");
     const HOME = ESC + this.height.toString() + "F";
     lines.push(
+      // At first iteration hide cursor
+      // At all other iterations move cursor up to first line if output
+      // Display header line
       (this.losses.length > 1 ? HOME : HIDE) + this.header,
+      // Display scatter plot and loss chart side by side
       ...scatter.map((line, index) => [line, losscomp[index]].join(SEP)),
+      // Display progress bar
       this.iteration.render(iteration)
     );
     return lines.join("\n");
   }
 
-  /** Reset cursor */
+  /** Reset cursor
+   * @result String printable on terminal console
+   */
   public finish(): string {
     return SHOW + LINEUP;
   }
