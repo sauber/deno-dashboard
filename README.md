@@ -135,3 +135,11 @@ deno run https://raw.githubusercontent.com/sauber/deno-dashboard/refs/heads/main
 ```
 
 [![asciicast](https://asciinema.org/a/hyMutOMpwVoUtMvOtqh7hHg94.svg)](https://asciinema.org/a/hyMutOMpwVoUtMvOtqh7hHg94)
+
+## Contribute
+
+Please file pull request.
+
+## License
+
+See [LICENSE](./LICENSE).
