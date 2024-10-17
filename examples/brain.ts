@@ -6,10 +6,8 @@ const training = [];
 for (let i = 0; i < 150; ++i) {
   const x = Math.random() * 2 - 1;
   const y = Math.random() * 2 - 1;
-  training.push({
-    input: [x, y],
-    output: [-Math.cos(Math.sqrt(x * x + y * y) * 5.5)],
-  });
+  const v = -Math.cos(Math.sqrt(x * x + y * y) * 5.5);
+  training.push({ input: [x, y], output: [v] });
 }
 
 // Neural network

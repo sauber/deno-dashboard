@@ -8,8 +8,9 @@ const ys: Outputs = [];
 for (let i = 0; i < 150; ++i) {
   const x = Math.random() * 2 - 1;
   const y = Math.random() * 2 - 1;
+  const v = -Math.cos(Math.sqrt(x * x + y * y) * 5.5);
   xs.push([x, y]);
-  ys.push([-Math.cos(Math.sqrt(x * x + y * y) * 5.5)]);
+  ys.push([v]);
 }
 
 // Neural network
