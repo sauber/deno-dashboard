@@ -1,4 +1,4 @@
-import type { Row, Inputs } from "../mod.ts";
+import type { Inputs, Row } from "../mod.ts";
 
 /** Extract a single column from Rows of Inputs */
 export function column(grid: Inputs, n: number): Column {

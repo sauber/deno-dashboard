@@ -16,7 +16,7 @@ function resample(data: number[], count: number): number[] {
   for (let i = 1; i <= count; ++i) {
     const bucket: number[] = data.slice(
       Math.floor((i - 1) * bucketSize),
-      Math.ceil(i * bucketSize)
+      Math.ceil(i * bucketSize),
     );
     output.push(average(bucket));
   }
@@ -27,7 +27,7 @@ function resample(data: number[], count: number): number[] {
 export class Loss {
   constructor(
     private readonly width: number,
-    private readonly height: number
+    private readonly height: number,
   ) {}
 
   /** Display a message that data is insufficient */

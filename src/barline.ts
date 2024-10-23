@@ -25,7 +25,7 @@ export class BarLine {
       label +
       this.line.substring(
         position + Math.ceil(label.length / 2),
-        this.line.length
+        this.line.length,
       );
     return this;
   }

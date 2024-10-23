@@ -53,8 +53,7 @@ export class Iteration {
     const ratio: number = this.count / this.max;
     const filled: number = Math.round(ratio * (width - 2));
     const open: number = width - 2 - filled;
-    const bar =
-      "[" +
+    const bar = "[" +
       Array(filled).fill("=").join("") +
       Array(open).fill("-").join("") +
       "]";

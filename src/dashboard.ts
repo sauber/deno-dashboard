@@ -44,7 +44,7 @@ export class Dashboard {
       width: colWidth,
       height: colHeight,
       xlabel,
-      ylabel
+      ylabel,
     });
     this.loss = new Loss(colWidth, colHeight);
     this.header = ["Scatter Plot", "Loss History"]
@@ -74,7 +74,7 @@ export class Dashboard {
       // Display scatter plot and loss chart side by side
       ...scatter.map((line, index) => [line, losscomp[index]].join(SEP)),
       // Display progress bar
-      this.iteration.render(iteration)
+      this.iteration.render(iteration),
     );
     return lines.join("\n");
   }

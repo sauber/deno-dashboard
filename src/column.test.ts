@@ -1,4 +1,4 @@
-import { assertInstanceOf, assertEquals } from "@std/assert";
+import { assertEquals, assertInstanceOf } from "@std/assert";
 import { Column } from "./column.ts";
 
 Deno.test("Column Instance", () => {

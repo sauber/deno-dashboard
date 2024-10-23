@@ -27,7 +27,7 @@ class XAxis {
     private readonly name: string,
     private readonly width: number,
     private readonly high: number,
-    private readonly low: number
+    private readonly low: number,
   ) {}
 
   /** Number of lines high */
@@ -66,7 +66,7 @@ class YAxis {
     private readonly name: string,
     private readonly high: number,
     private readonly low: number,
-    private readonly height: number
+    private readonly height: number,
   ) {}
 
   /** Highest number as a string */
@@ -84,7 +84,7 @@ class YAxis {
     return Math.max(
       this.highLabel.length,
       this.name.length,
-      this.lowLabel.length
+      this.lowLabel.length,
     );
   }
 
@@ -134,8 +134,7 @@ class ZAxis {
     const black: string = rgb24(block, { r: 0, g: 0, b: 0 });
     const white: string = rgb24(block, { r: 255, g: 255, b: 255 });
     // Generate this sting: "#/#=-1.0  #/#=1.0"
-    const labels: string =
-      black +
+    const labels: string = black +
       "/" +
       red +
       "=" +
@@ -146,8 +145,8 @@ class ZAxis {
       green +
       "=" +
       high.toPrecision(2);
-    const labelwidth: number =
-      low.toPrecision(2).length + high.toPrecision(2).length + 10;
+    const labelwidth: number = low.toPrecision(2).length +
+      high.toPrecision(2).length + 10;
     const bar: string =
       new BarLine(Math.ceil((this.width - labelwidth) / 2)).line +
       labels +
@@ -194,7 +193,7 @@ export class Scatter {
     private readonly inputs: Inputs,
     private readonly outputs: Outputs,
     predict: Predict,
-    private readonly config: Partial<Scatter> = {}
+    private readonly config: Partial<Scatter> = {},
   ) {
     Object.assign(this, config);
 
@@ -212,7 +211,7 @@ export class Scatter {
       height,
       inputs,
       outputs,
-      predict
+      predict,
     );
   }
 

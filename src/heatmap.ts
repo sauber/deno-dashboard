@@ -1,6 +1,6 @@
 import { blockify } from "@image";
 import type { Inputs, Outputs, Predict } from "../mod.ts";
-import { column, Column } from "./column.ts";
+import { Column, column } from "./column.ts";
 
 // Set of: Input XS, Input YS, Outputs
 type Overlay = [Column, Column, Column];
@@ -23,7 +23,7 @@ export class HeatmapMaker {
     private readonly height: number,
     inputs: Inputs,
     outputs: Outputs,
-    private readonly predict: Predict
+    private readonly predict: Predict,
   ) {
     // Keep static overlay data for later
     const x = column(inputs, 0);
@@ -58,7 +58,7 @@ export class Heatmap {
     private readonly width: number,
     private readonly height: number,
     private readonly values: number[],
-    private readonly overlay: Overlay
+    private readonly overlay: Overlay,
   ) {
     // Find min and max output values
     const all = [...values, overlay[2].min, this.overlay[2].max];
@@ -84,8 +84,7 @@ export class Heatmap {
     const input_max: number = this.max;
     const output_min = 0;
     const output_max = 256;
-    const f: number =
-      ((input - input_min) / (input_max - input_min)) *
+    const f: number = ((input - input_min) / (input_max - input_min)) *
         (output_max - output_min) +
       output_min;
 
