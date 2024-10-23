@@ -34,13 +34,17 @@ export class Dashboard {
     private readonly inputs: Inputs,
     private readonly outputs: Outputs,
     private readonly predict: Predict,
-    private readonly epochs: number
+    private readonly epochs: number,
+    private readonly xlabel: string = "X",
+    private readonly ylabel: string = "Y",
   ) {
     const colWidth = Math.floor((this.width - 1) / 2);
     const colHeight = this.height - 2;
     this.scatter = new Scatter(inputs, outputs, predict, {
       width: colWidth,
       height: colHeight,
+      xlabel,
+      ylabel
     });
     this.loss = new Loss(colWidth, colHeight);
     this.header = ["Scatter Plot", "Loss History"]

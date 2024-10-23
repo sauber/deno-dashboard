@@ -38,7 +38,7 @@ Deno.test("Iteration 2", () => {
 Deno.test("Run Iterations", { ignore: false }, () => {
   const max = 1000;
   const step = 100;
-  const d = new Dashboard(40, 10, x.inputs, x.outputs, x.predict, max);
+  const d = new Dashboard(40, 10, x.inputs, x.outputs, x.predict, max, "foox", "bary");
   for (let i = 0; i < max; i += step) {
     const printable: string = d.render(i, Math.random());
     console.log(printable);
