@@ -67,14 +67,13 @@ export class Dashboard {
     const losscomp: string[] = this.loss.render(this.losses).split("\n");
     const HOME = ESC + this.height.toString() + "F";
     lines.push(
-      // At first iteration hide cursor
-      // At all other iterations move cursor up to first line if output
+      // At all subsequent iterations move cursor up to first line if output
       // Display header line
-      (this.losses.length > 1 ? HOME : HIDE) + this.header,
+      HIDE + (this.losses.length > 1 ? HOME : "") + this.header,
       // Display scatter plot and loss chart side by side
       ...scatter.map((line, index) => [line, losscomp[index]].join(SEP)),
       // Display progress bar
-      this.iteration.render(iteration),
+      this.iteration.render(iteration) + SHOW,
     );
     return lines.join("\n");
   }
@@ -83,6 +82,6 @@ export class Dashboard {
    * @result String printable on terminal console
    */
   public finish(): string {
-    return SHOW + LINEUP;
+    return LINEUP;
   }
 }
