@@ -1,27 +1,6 @@
 import { plot } from "@chart";
 import { BarLine } from "./barline.ts";
-
-/** Pick samples from array */
-function resample(data: number[], count: number): number[] {
-  // No resample if too little data
-  if (count >= data.length) return data;
-
-  // Average of numbers
-  const average = (arr: number[]) =>
-    arr.reduce((p: number, c: number) => p + c, 0) / arr.length;
-
-  // Downsample buckets
-  const output: number[] = [];
-  const bucketSize = data.length / count;
-  for (let i = 1; i <= count; ++i) {
-    const bucket: number[] = data.slice(
-      Math.floor((i - 1) * bucketSize),
-      Math.ceil(i * bucketSize),
-    );
-    output.push(average(bucket));
-  }
-  return output;
-}
+import { downsample } from "@sauber/statistics";
 
 /** Display a loss chart */
 export class Loss {
@@ -45,7 +24,7 @@ export class Loss {
     // Generate a graph
     // TODO: Better estimation of padding width
     const chartWidth = this.width - 7;
-    const points: number[] = resample(history, chartWidth);
+    const points: number[] = downsample(history, chartWidth);
     const printable: string = plot(points, {
       height: this.height - 1,
       padding: "      ",
