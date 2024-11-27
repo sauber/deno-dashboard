@@ -1,10 +1,8 @@
 import { rgb24 } from "@std/fmt/colors";
-import type { Inputs, Outputs, Predict } from "../mod.ts";
+import type { Inputs, Outputs, Predict } from "./types.d.ts";
 import { BarLine } from "./barline.ts";
-import { HeatmapMaker } from "./heatmap.ts";
-import type { Heatmap } from "./heatmap.ts";
-import { column } from "./column.ts";
-import type { Column } from "./column.ts";
+import { type Heatmap, HeatmapMaker } from "./heatmap.ts";
+import { type Column, column } from "./column.ts";
 
 type Overlay = [Column, Column, Column];
 
@@ -209,8 +207,6 @@ export class Scatter {
     this.maker = new HeatmapMaker(
       this.width - this.yaxis.width,
       height,
-      inputs,
-      outputs,
       predict,
     );
   }
@@ -235,7 +231,7 @@ export class Scatter {
    * @result String printable on terminal console
    */
   public plot(): string {
-    const heatmap: Heatmap = this.maker.heatmap();
+    const heatmap: Heatmap = this.maker.heatmap(this.inputs, this.outputs);
 
     const header: string[] = this.zaxis.render(heatmap.min, heatmap.max);
     const yaxis: string[] = this.yaxis.render();

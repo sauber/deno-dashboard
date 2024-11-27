@@ -1,6 +1,5 @@
-import { assertInstanceOf } from "@std/assert/assert-instance-of";
+import { assertEquals, assertInstanceOf } from "@std/assert";
 import { Loss } from "./loss.ts";
-import { assertEquals } from "@std/assert/assert-equals";
 
 Deno.test("Instance", () => {
   const l = new Loss(0, 0);

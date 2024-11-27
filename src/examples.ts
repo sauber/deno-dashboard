@@ -1,4 +1,4 @@
-import type { Inputs, Outputs, Predict } from "../mod.ts";
+import type { Inputs, Outputs, Predict } from "./types.d.ts";
 
 /** A network to solve inputs to outputs */
 export type Example = {

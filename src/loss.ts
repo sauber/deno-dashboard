@@ -1,4 +1,4 @@
-import { plot } from "@chart";
+import { plot } from "asciichart";
 import { BarLine } from "./barline.ts";
 import { downsample } from "@sauber/statistics";
 
