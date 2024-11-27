@@ -33,9 +33,7 @@ class XAxis {
     return 1;
   }
 
-  /** Generate all lines in X Axis
-   * TODO: This output is static, so only render once
-   */
+  /** Generate all lines in X Axis */
   public render(): string[] {
     const low: string = this.low.toPrecision(2);
     const high: string = this.high.toPrecision(2);
@@ -175,40 +173,19 @@ export class Scatter {
   /** Total height of diagrams in lines of chars */
   public readonly height: number = 11;
 
-  // Components in diagram
-  private readonly xaxis: XAxis;
-  private readonly yaxis: YAxis;
-  private readonly zaxis: ZAxis;
-  private readonly maker: HeatmapMaker;
-
   /**
-   * @param {Inputs} input   - Training input values, array of rows of numbers
-   * @param {Outputs} output  - Training output values, array of rows of numbers
+   * @param {Inputs} inputs   - Training input values, array of rows of numbers
+   * @param {Outputs} outputs - Training output values, array of rows of numbers
    * @param {Predict} predict - Function to generate output scalar from [x,y] input values
    * @param {Scatter} config  - Options for x, y and z axis
    */
   constructor(
     private readonly inputs: Inputs,
     private readonly outputs: Outputs,
-    predict: Predict,
+    private readonly predict: Predict,
     private readonly config: Partial<Scatter> = {},
   ) {
     Object.assign(this, config);
-
-    // Define all the components of the diagram
-    const xs: Column = column(inputs, 0);
-    const ys: Column = column(inputs, 1);
-    this.xaxis = new XAxis(this.xlabel, this.width, xs.max, xs.min);
-    this.zaxis = new ZAxis(this.zlabel, this.width);
-    const height: number = this.height - this.zaxis.height - this.xaxis.height;
-    this.yaxis = new YAxis(this.ylabel, ys.max, ys.min, height);
-    this.xaxis.start = this.yaxis.width;
-    this.zaxis.start = this.yaxis.width;
-    this.maker = new HeatmapMaker(
-      this.width - this.yaxis.width,
-      height,
-      predict,
-    );
   }
 
   /** Diagram Layout:
@@ -231,16 +208,31 @@ export class Scatter {
    * @result String printable on terminal console
    */
   public plot(): string {
-    const heatmap: Heatmap = this.maker.heatmap(this.inputs, this.outputs);
+    // Dimensions and axis
+    const xs: Column = column(this.inputs, 0);
+    const ys: Column = column(this.inputs, 1);
+    const xaxis = new XAxis(this.xlabel, this.width, xs.max, xs.min);
+    const zaxis = new ZAxis(this.zlabel, this.width);
+    const height: number = this.height - zaxis.height - xaxis.height;
+    const yaxis = new YAxis(this.ylabel, ys.max, ys.min, height);
+    xaxis.start = yaxis.width;
+    zaxis.start = yaxis.width;
+    const maker = new HeatmapMaker(
+      this.width - yaxis.width,
+      height,
+      this.predict,
+    );
 
-    const header: string[] = this.zaxis.render(heatmap.min, heatmap.max);
-    const yaxis: string[] = this.yaxis.render();
+    const heatmap: Heatmap = maker.heatmap(this.inputs, this.outputs);
+
+    const header: string[] = zaxis.render(heatmap.min, heatmap.max);
+    const yscale: string[] = yaxis.render();
     const content: string[] = heatmap.render().split("\n");
-    const footer: string[] = this.xaxis.render();
+    const footer: string[] = xaxis.render();
 
     const lines: string[] = [
       ...header,
-      ...yaxis.map((line, index) => [line, content[index]].join("")),
+      ...yscale.map((line, index) => [line, content[index]].join("")),
       ...footer,
     ];
 
