@@ -43,9 +43,9 @@ class XAxis {
     const low: string = digits(this.low);
     const high: string = digits(this.high);
     const bar = new BarLine(this.width)
+      .at(this.start + (this.width - this.start) / 2, this.name)
       .at(this.start, low)
-      .right(high)
-      .at(this.start + (this.width - this.start) / 2, this.name);
+      .right(high);
 
     return [bar.line];
   }
@@ -97,8 +97,8 @@ class YAxis {
     const h: number = this.height; // Height
     const padding = new BarLine(w).line;
     const lines: string[] = Array(h).fill(padding);
-    lines[0] = new BarLine(w).right(this.highLabel).line;
     lines[Math.round((h - 1) / 2)] = new BarLine(w).center(this.name).line;
+    lines[0] = new BarLine(w).right(this.highLabel).line;
     lines[h - 1] = new BarLine(w).right(this.lowLabel).line;
     return lines;
   }
