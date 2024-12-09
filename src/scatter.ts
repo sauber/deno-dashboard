@@ -6,6 +6,11 @@ import { type Column, column } from "./column.ts";
 
 type Overlay = [Column, Column, Column];
 
+// Convert number to string of significant numbers
+function digits(n: number, count: number = 2): string {
+  return parseFloat(n.toPrecision(count)).toString();
+}
+
 ////////////////////////////////////////////////////////////////////////
 /// X Axis
 ////////////////////////////////////////////////////////////////////////
@@ -35,8 +40,8 @@ class XAxis {
 
   /** Generate all lines in X Axis */
   public render(): string[] {
-    const low: string = this.low.toPrecision(2);
-    const high: string = this.high.toPrecision(2);
+    const low: string = digits(this.low);
+    const high: string = digits(this.high);
     const bar = new BarLine(this.width)
       .at(this.start, low)
       .right(high)
@@ -67,12 +72,12 @@ class YAxis {
 
   /** Highest number as a string */
   private get highLabel(): string {
-    return this.high.toPrecision(2);
+    return digits(this.high);
   }
 
   /** Highest number as a string */
   private get lowLabel(): string {
-    return this.low.toPrecision(2);
+    return digits(this.low);
   }
 
   /** Max length of labels */
@@ -134,15 +139,15 @@ class ZAxis {
       "/" +
       red +
       "=" +
-      low.toPrecision(2) +
+      digits(low) +
       "  " +
       white +
       "/" +
       green +
       "=" +
-      high.toPrecision(2);
-    const labelwidth: number = low.toPrecision(2).length +
-      high.toPrecision(2).length + 10;
+      digits(high);
+    const labelwidth: number = digits(low).length +
+      digits(high).length + 10;
     const bar: string =
       new BarLine(Math.ceil((this.width - labelwidth) / 2)).line +
       labels +
