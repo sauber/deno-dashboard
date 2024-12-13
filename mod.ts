@@ -1,4 +1,5 @@
 export * from "./src/dashboard.ts";
+export * from "./src/iteration.ts";
 
 /** A single set of inputs */
 export type Row = [number, number];

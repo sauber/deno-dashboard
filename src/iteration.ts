@@ -2,6 +2,7 @@ import { format } from "@std/datetime/format";
 
 type MS = number;
 
+/*' Display a progress bar */
 export class Iteration {
   /** Start time */
   private readonly start: number;
