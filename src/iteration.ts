@@ -72,6 +72,7 @@ export class Iteration {
   /** Display a bar with information about iterations */
   public render(iterations: number): string {
     this.count = iterations;
+    if ( iterations > this.max ) this.max = iterations;
     return this.combined();
   }
 

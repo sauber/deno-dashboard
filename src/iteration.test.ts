@@ -32,3 +32,12 @@ Deno.test("Finish before max", () => {
   const bar = i.finish();
   assertEquals(bar.substring(0, 3), "1/1");
 });
+
+Deno.test("Exceed max", () => {
+  const max = 10;
+  const width = 40;
+  const i = new Iteration(max, width);
+  i.render(max+1);
+  const bar = i.finish();
+  assertEquals(bar.substring(0, 5), "11/11");
+});
