@@ -1,12 +1,10 @@
-// import { delay } from 'https://deno.land/x/delay@v0.2.0/mod.ts';
 import {
   assertInstanceOf,
   assertNotMatch,
   assertStringIncludes,
 } from "@std/assert";
 import { Dashboard } from "./dashboard.ts";
-import { xor } from "./examples.ts";
-import type { Example } from "./examples.ts";
+import { type Example, xor } from "./examples.ts";
 
 const x: Example = xor();
 

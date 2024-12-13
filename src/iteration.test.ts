@@ -1,6 +1,5 @@
-import { assertInstanceOf } from "@std/assert/assert-instance-of";
+import { assertEquals, assertInstanceOf } from "@std/assert";
 import { Iteration } from "./iteration.ts";
-import { assertEquals } from "@std/assert";
 
 Deno.test("Instance", () => {
   const i = new Iteration(0, 0);

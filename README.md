@@ -91,7 +91,7 @@ const dashboard = new Dashboard(
 // Callback to dashboard from training
 function status(iteration: number, lossHistory: number[]): void {
   const loss = lossHistory[lossHistory.length-1];
-  console.log(dashboard.render(iteration, loss);
+  console.log(dashboard.render(iteration, loss));
 }
 
 // Run training

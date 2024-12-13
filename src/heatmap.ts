@@ -1,5 +1,5 @@
 import { blockify } from "@image";
-import type { Inputs, Outputs, Predict } from "../mod.ts";
+import type { Inputs, Outputs, Predict } from "./types.d.ts";
 import { Column, column } from "./column.ts";
 
 // Set of: Input XS, Input YS, Outputs
@@ -7,39 +7,35 @@ type Overlay = [Column, Column, Column];
 
 /** Create heatmap of freshly predicted values */
 export class HeatmapMaker {
-  /** Row of mean values from all columns */
-  private readonly overlay: Overlay;
-  private readonly inputs: Inputs;
-
   /**
    * @param {number} width Number of chars wide
    * @param {number} height Number of lines high
-   * @param {inputs} Inputs Inputs training data
-   * @param {outputs} Outputs Outputs training data
-   * @param {predict} function Generate one output from two inputs, x and y
+   * @param {function} predict Generate one output from two inputs, x and y
    */
   constructor(
     private readonly width: number,
     private readonly height: number,
-    inputs: Inputs,
-    outputs: Outputs,
     private readonly predict: Predict,
-  ) {
-    // Keep static overlay data for later
-    const x = column(inputs, 0);
-    const y = column(inputs, 1);
-    this.overlay = [x, y, new Column(outputs)];
+  ) {}
 
-    // Generate set of inputs for heatmap
-    const xs = x.points(width * 2);
-    const ys = y.points(height * 2);
-    this.inputs = [];
-    ys.forEach((y) => xs.forEach((x) => this.inputs.push([x, y])));
-  }
+  public heatmap(overlay_inputs: Inputs, overlay_outputs: Outputs): Heatmap {
+    // Overlay data
+    const x = column(overlay_inputs, 0);
+    const y = column(overlay_inputs, 1);
+    const z = new Column(overlay_outputs);
+    const overlay: Overlay = [x, y, z];
 
-  public heatmap(): Heatmap {
-    const values: Outputs = this.inputs.map((input) => this.predict(...input));
-    return new Heatmap(this.width * 2, this.height * 2, values, this.overlay);
+    // Generate inputs for each pixel in heatmap
+    const xs = x.points(this.width * 2);
+    const ys = y.points(this.height * 2);
+    const scatter_inputs: Inputs = [];
+    ys.forEach((y) => xs.forEach((x) => scatter_inputs.push([x, y])));
+
+    // Generate outputs for heatmap
+    const values: Outputs = scatter_inputs.map((input) =>
+      this.predict(...input)
+    );
+    return new Heatmap(this.width * 2, this.height * 2, values, overlay);
   }
 }
 

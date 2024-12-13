@@ -2,7 +2,7 @@ import { BarLine } from "./barline.ts";
 import { Loss } from "./loss.ts";
 import { Scatter } from "./scatter.ts";
 import { Iteration } from "./iteration.ts";
-import type { Inputs, Outputs, Predict } from "../mod.ts";
+import type { Inputs, Outputs, Predict } from "./types.d.ts";
 
 // ANSI escape codes
 const SEP = "│";
